@@ -4263,11 +4263,11 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pp`
+-- Struktur dari tabel `trans_pr`
 --
 
-CREATE TABLE `trans_pp` (
-  `id_pp` int(11) NOT NULL,
+CREATE TABLE `trans_pr` (
+  `id_pr` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   `no_transaksi` varchar(20) NOT NULL,
   `tgl_transaksi` date NOT NULL,
@@ -4283,12 +4283,12 @@ CREATE TABLE `trans_pp` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pp_body`
+-- Struktur dari tabel `trans_pr_body`
 --
 
-CREATE TABLE `trans_pp_body` (
-  `id_pp_body` int(11) NOT NULL,
-  `id_pp` int(11) NOT NULL,
+CREATE TABLE `trans_pr_body` (
+  `id_pr_body` int(11) NOT NULL,
+  `id_pr` int(11) NOT NULL,
   `id_pi` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_supplier` int(11) NOT NULL,
@@ -4304,12 +4304,12 @@ CREATE TABLE `trans_pp_body` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pp_footer`
+-- Struktur dari tabel `trans_pr_footer`
 --
 
-CREATE TABLE `trans_pp_footer` (
-  `id_pp_footer` int(11) NOT NULL,
-  `id_pp` int(11) NOT NULL,
+CREATE TABLE `trans_pr_footer` (
+  `id_pr_footer` int(11) NOT NULL,
+  `id_pr` int(11) NOT NULL,
   `id_akun` int(11) NOT NULL,
   `no_pembayaran` varchar(20) NOT NULL,
   `tgl_cair` date NOT NULL,
@@ -4598,11 +4598,11 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_sp`
+-- Struktur dari tabel `trans_sr`
 --
 
-CREATE TABLE `trans_sp` (
-  `id_sp` int(11) NOT NULL,
+CREATE TABLE `trans_sr` (
+  `id_sr` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   `no_transaksi` varchar(20) NOT NULL,
   `tgl_transaksi` date NOT NULL,
@@ -4618,12 +4618,12 @@ CREATE TABLE `trans_sp` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_sp_body`
+-- Struktur dari tabel `trans_sr_body`
 --
 
-CREATE TABLE `trans_sp_body` (
-  `id_sp_body` int(11) NOT NULL,
-  `id_sp` int(11) NOT NULL,
+CREATE TABLE `trans_sr_body` (
+  `id_sr_body` int(11) NOT NULL,
+  `id_sr` int(11) NOT NULL,
   `id_si` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_customer` int(11) NOT NULL,
@@ -4639,12 +4639,12 @@ CREATE TABLE `trans_sp_body` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_sp_footer`
+-- Struktur dari tabel `trans_sr_footer`
 --
 
-CREATE TABLE `trans_sp_footer` (
-  `id_sp_footer` int(11) NOT NULL,
-  `id_sp` int(11) NOT NULL,
+CREATE TABLE `trans_sr_footer` (
+  `id_sr_footer` int(11) NOT NULL,
+  `id_sr` int(11) NOT NULL,
   `id_akun` int(11) NOT NULL,
   `no_pembayaran` varchar(20) NOT NULL,
   `tgl_cair` date NOT NULL,
@@ -4678,6 +4678,34 @@ CREATE TABLE `users` (
 --
 -- Indexes for dumped tables
 --
+--
+CREATE TABLE IF NOT EXISTS `view_barang` (
+`id_barang` int(11)
+,`kode_barang_supplier` varchar(271)
+,`kode_barang_merk` varchar(36)
+,`kode_barang_kategori` varchar(31)
+,`kode_barang` varchar(15)
+,`barcode_1` varchar(20)
+,`barcode_2` varchar(20)
+,`barcode_3` varchar(20)
+,`barcode_4` varchar(20)
+,`barcode_5` varchar(20)
+,`nama_barang` varchar(255)
+,`harga_1` varchar(322)
+,`harga_2` varchar(322)
+,`harga_3` varchar(322)
+,`harga_4` varchar(322)
+,`harga_5` varchar(322)
+,`total_barang` decimal(32,0)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_barang`
+--
+DROP TABLE IF EXISTS `view_barang`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_barang` AS select `b`.`id_barang` AS `id_barang`,concat(`s`.`kode_supplier`,'-',`b`.`kode_barang`) AS `kode_barang_supplier`,concat(`m`.`kode_merk`,'-',`b`.`kode_barang`) AS `kode_barang_merk`,concat(`k`.`kode_kategori`,'-',`b`.`kode_barang`) AS `kode_barang_kategori`,`b`.`kode_barang` AS `kode_barang`,`b`.`barcode_1` AS `barcode_1`,`b`.`barcode_2` AS `barcode_2`,`b`.`barcode_3` AS `barcode_3`,`b`.`barcode_4` AS `barcode_4`,`b`.`barcode_5` AS `barcode_5`,`b`.`nama_barang` AS `nama_barang`,concat(cast(format(`b`.`harga_1`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_1` using utf8mb4),' - (',`b`.`kali_1`,')') AS `harga_1`,concat(cast(format(`b`.`harga_2`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_2` using utf8mb4),' - (',`b`.`kali_2`,')') AS `harga_2`,concat(cast(format(`b`.`harga_3`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_3` using utf8mb4),' - (',`b`.`kali_3`,')') AS `harga_3`,concat(cast(format(`b`.`harga_4`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_4` using utf8mb4),' - (',`b`.`kali_4`,')') AS `harga_4`,concat(cast(format(`b`.`harga_5`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_5` using utf8mb4),' - (',`b`.`kali_5`,')') AS `harga_5`,sum(`l`.`stok_barang`) AS `total_barang` from ((((`master_barang` `b` left join `master_supplier` `s` on((`b`.`id_supplier` = `s`.`id_supplier`))) left join `master_kategori` `k` on((`b`.`id_kategori` = `k`.`id_kategori`))) left join `master_merk` `m` on((`b`.`id_merk` = `m`.`id_merk`))) left join `master_stok` `l` on((`b`.`id_barang` = `l`.`id_barang`))) group by `b`.`id_barang`;
 
 --
 -- Indexes for table `log_transaksi`
@@ -4818,22 +4846,22 @@ ALTER TABLE `trans_po_footer`
   ADD PRIMARY KEY (`id_po_footer`);
 
 --
--- Indexes for table `trans_pp`
+-- Indexes for table `trans_pr`
 --
-ALTER TABLE `trans_pp`
-  ADD PRIMARY KEY (`id_pp`);
+ALTER TABLE `trans_pr`
+  ADD PRIMARY KEY (`id_pr`);
 
 --
--- Indexes for table `trans_pp_body`
+-- Indexes for table `trans_pr_body`
 --
-ALTER TABLE `trans_pp_body`
-  ADD PRIMARY KEY (`id_pp_body`);
+ALTER TABLE `trans_pr_body`
+  ADD PRIMARY KEY (`id_pr_body`);
 
 --
--- Indexes for table `trans_pp_footer`
+-- Indexes for table `trans_pr_footer`
 --
-ALTER TABLE `trans_pp_footer`
-  ADD PRIMARY KEY (`id_pp_footer`);
+ALTER TABLE `trans_pr_footer`
+  ADD PRIMARY KEY (`id_pr_footer`);
 
 --
 -- Indexes for table `trans_ri`
@@ -4890,22 +4918,22 @@ ALTER TABLE `trans_so_footer`
   ADD PRIMARY KEY (`id_so_footer`);
 
 --
--- Indexes for table `trans_sp`
+-- Indexes for table `trans_sr`
 --
-ALTER TABLE `trans_sp`
-  ADD PRIMARY KEY (`id_sp`);
+ALTER TABLE `trans_sr`
+  ADD PRIMARY KEY (`id_sr`);
 
 --
--- Indexes for table `trans_sp_body`
+-- Indexes for table `trans_sr_body`
 --
-ALTER TABLE `trans_sp_body`
-  ADD PRIMARY KEY (`id_sp_body`);
+ALTER TABLE `trans_sr_body`
+  ADD PRIMARY KEY (`id_sr_body`);
 
 --
--- Indexes for table `trans_sp_footer`
+-- Indexes for table `trans_sr_footer`
 --
-ALTER TABLE `trans_sp_footer`
-  ADD PRIMARY KEY (`id_sp_footer`);
+ALTER TABLE `trans_sr_footer`
+  ADD PRIMARY KEY (`id_sr_footer`);
 
 --
 -- Indexes for table `users`
@@ -5033,20 +5061,20 @@ ALTER TABLE `trans_po_body`
 ALTER TABLE `trans_po_footer`
   MODIFY `id_po_footer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `trans_pp`
+-- AUTO_INCREMENT for table `trans_pr`
 --
-ALTER TABLE `trans_pp`
-  MODIFY `id_pp` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trans_pr`
+  MODIFY `id_pr` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `trans_pp_body`
+-- AUTO_INCREMENT for table `trans_pr_body`
 --
-ALTER TABLE `trans_pp_body`
-  MODIFY `id_pp_body` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trans_pr_body`
+  MODIFY `id_pr_body` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `trans_pp_footer`
+-- AUTO_INCREMENT for table `trans_pr_footer`
 --
-ALTER TABLE `trans_pp_footer`
-  MODIFY `id_pp_footer` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trans_pr_footer`
+  MODIFY `id_pr_footer` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `trans_ri`
 --
@@ -5093,20 +5121,20 @@ ALTER TABLE `trans_so_body`
 ALTER TABLE `trans_so_footer`
   MODIFY `id_so_footer` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `trans_sp`
+-- AUTO_INCREMENT for table `trans_sr`
 --
-ALTER TABLE `trans_sp`
-  MODIFY `id_sp` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trans_sr`
+  MODIFY `id_sr` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `trans_sp_body`
+-- AUTO_INCREMENT for table `trans_sr_body`
 --
-ALTER TABLE `trans_sp_body`
-  MODIFY `id_sp_body` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trans_sr_body`
+  MODIFY `id_sr_body` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `trans_sp_footer`
+-- AUTO_INCREMENT for table `trans_sr_footer`
 --
-ALTER TABLE `trans_sp_footer`
-  MODIFY `id_sp_footer` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trans_sr_footer`
+  MODIFY `id_sr_footer` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
