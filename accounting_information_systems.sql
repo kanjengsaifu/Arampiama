@@ -3,21 +3,21 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 28 Des 2017 pada 17.48
--- Versi Server: 5.6.35
+-- Generation Time: Jan 25, 2018 at 11:20 PM
+-- Server version: 5.6.35
 -- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `a`
+-- Database: `accounting_information_systems`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_transaksi`
+-- Table structure for table `log_transaksi`
 --
 
 CREATE TABLE `log_transaksi` (
@@ -31,7 +31,7 @@ CREATE TABLE `log_transaksi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_akun`
+-- Table structure for table `master_akun`
 --
 
 CREATE TABLE `master_akun` (
@@ -53,7 +53,7 @@ CREATE TABLE `master_akun` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_akun_parent`
+-- Table structure for table `master_akun_parent`
 --
 
 CREATE TABLE `master_akun_parent` (
@@ -68,7 +68,7 @@ CREATE TABLE `master_akun_parent` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_akun_parent`
+-- Dumping data for table `master_akun_parent`
 --
 
 INSERT INTO `master_akun_parent` (`id_akun_header`, `kode_akun_header`, `nama_akun`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -203,7 +203,7 @@ INSERT INTO `master_akun_parent` (`id_akun_header`, `kode_akun_header`, `nama_ak
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_akun_tipe`
+-- Table structure for table `master_akun_tipe`
 --
 
 CREATE TABLE `master_akun_tipe` (
@@ -219,7 +219,7 @@ CREATE TABLE `master_akun_tipe` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_barang`
+-- Table structure for table `master_barang`
 --
 
 CREATE TABLE `master_barang` (
@@ -265,7 +265,7 @@ CREATE TABLE `master_barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_barang`
+-- Dumping data for table `master_barang`
 --
 
 INSERT INTO `master_barang` (`id_barang`, `kode_barang`, `barcode_1`, `barcode_2`, `barcode_3`, `barcode_4`, `barcode_5`, `id_supplier`, `id_merk`, `id_kategori`, `id_ukuran`, `id_akun`, `nama_barang`, `panjang`, `lebar`, `tinggi`, `harga_1`, `satuan_1`, `kali_1`, `harga_2`, `satuan_2`, `kali_2`, `harga_3`, `satuan_3`, `kali_3`, `harga_4`, `satuan_4`, `kali_4`, `harga_5`, `satuan_5`, `kali_5`, `hpp`, `gambar_barang`, `stok_minimum`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -371,7 +371,7 @@ INSERT INTO `master_barang` (`id_barang`, `kode_barang`, `barcode_1`, `barcode_2
 (112, '112', '', '', '', '', '', 55, 35, 2, 1, 14, 'SPT. FASTRAK 209', '0.00', '0.00', '0.00', '0.00', 'PS', 1, '190000.00', 'LS', 12, '0.00', '', 0, '0.00', '', 0, NULL, '', 0, '0.00', 'barang.jpg', 0, 1, '2017-11-10 21:43:12', '2017-11-10 21:43:12', 0, '');
 
 --
--- Trigger `master_barang`
+-- Triggers `master_barang`
 --
 DELIMITER $$
 CREATE TRIGGER `Barang_Insert_Stok` AFTER INSERT ON `master_barang` FOR EACH ROW insert into master_stok (`id_lokasi`,`id_barang`) 
@@ -382,7 +382,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_customer`
+-- Table structure for table `master_customer`
 --
 
 CREATE TABLE `master_customer` (
@@ -410,7 +410,7 @@ CREATE TABLE `master_customer` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_gudang`
+-- Table structure for table `master_gudang`
 --
 
 CREATE TABLE `master_gudang` (
@@ -427,7 +427,7 @@ CREATE TABLE `master_gudang` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_kategori`
+-- Table structure for table `master_kategori`
 --
 
 CREATE TABLE `master_kategori` (
@@ -443,7 +443,7 @@ CREATE TABLE `master_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_kategori`
+-- Dumping data for table `master_kategori`
 --
 
 INSERT INTO `master_kategori` (`id_kategori`, `kode_kategori`, `kategori`, `root`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -457,7 +457,7 @@ INSERT INTO `master_kategori` (`id_kategori`, `kode_kategori`, `kategori`, `root
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_lokasi`
+-- Table structure for table `master_lokasi`
 --
 
 CREATE TABLE `master_lokasi` (
@@ -471,7 +471,7 @@ CREATE TABLE `master_lokasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_lokasi`
+-- Dumping data for table `master_lokasi`
 --
 
 INSERT INTO `master_lokasi` (`id_lokasi`, `id_gudang`, `nama_lokasi`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -480,7 +480,7 @@ INSERT INTO `master_lokasi` (`id_lokasi`, `id_gudang`, `nama_lokasi`, `created_a
 (3, 1, 'A3', '2017-12-28 14:46:10', '2017-12-28 14:46:10', 0, '');
 
 --
--- Trigger `master_lokasi`
+-- Triggers `master_lokasi`
 --
 DELIMITER $$
 CREATE TRIGGER `Lokasi_Insert_Stok` AFTER INSERT ON `master_lokasi` FOR EACH ROW insert into master_stok (`id_lokasi`,`id_barang`) 
@@ -491,7 +491,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_merk`
+-- Table structure for table `master_merk`
 --
 
 CREATE TABLE `master_merk` (
@@ -506,7 +506,7 @@ CREATE TABLE `master_merk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_merk`
+-- Dumping data for table `master_merk`
 --
 
 INSERT INTO `master_merk` (`id_merk`, `kode_merk`, `merk`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -2571,7 +2571,7 @@ INSERT INTO `master_merk` (`id_merk`, `kode_merk`, `merk`, `id_user`, `created_a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_region`
+-- Table structure for table `master_region`
 --
 
 CREATE TABLE `master_region` (
@@ -2588,7 +2588,7 @@ CREATE TABLE `master_region` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_sales`
+-- Table structure for table `master_sales`
 --
 
 CREATE TABLE `master_sales` (
@@ -2607,7 +2607,7 @@ CREATE TABLE `master_sales` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_stok`
+-- Table structure for table `master_stok`
 --
 
 CREATE TABLE `master_stok` (
@@ -2622,7 +2622,7 @@ CREATE TABLE `master_stok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_stok`
+-- Dumping data for table `master_stok`
 --
 
 INSERT INTO `master_stok` (`id_stok`, `id_barang`, `id_lokasi`, `stok_barang`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -2930,7 +2930,7 @@ INSERT INTO `master_stok` (`id_stok`, `id_barang`, `id_lokasi`, `stok_barang`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_supplier`
+-- Table structure for table `master_supplier`
 --
 
 CREATE TABLE `master_supplier` (
@@ -2955,7 +2955,7 @@ CREATE TABLE `master_supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `master_supplier`
+-- Dumping data for table `master_supplier`
 --
 
 INSERT INTO `master_supplier` (`id_supplier`, `kode_supplier`, `nama_supplier`, `id_region`, `alamat_supplier`, `telp1_supplier`, `telp2_supplier`, `fax_supplier`, `nama_sales`, `telp1_sales`, `telp2_sales`, `batas_limit`, `saldo_hutang`, `aging`, `is_void`, `user_update`, `tgl_update`, `jenis`) VALUES
@@ -3842,7 +3842,7 @@ INSERT INTO `master_supplier` (`id_supplier`, `kode_supplier`, `nama_supplier`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `setting_menu`
+-- Table structure for table `setting_menu`
 --
 
 CREATE TABLE `setting_menu` (
@@ -3862,7 +3862,7 @@ CREATE TABLE `setting_menu` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_adjustment`
+-- Table structure for table `trans_adjustment`
 --
 
 CREATE TABLE `trans_adjustment` (
@@ -3880,14 +3880,14 @@ CREATE TABLE `trans_adjustment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `trans_adjustment`
+-- Dumping data for table `trans_adjustment`
 --
 
 INSERT INTO `trans_adjustment` (`id_adjustment`, `id_lokasi`, `id_barang`, `stok_awal`, `stok_adjustment`, `tgl_adjustment`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
 (1, 1, 1, 6, 0, '2017-12-28', 1, '2017-12-28 15:19:59', '2017-12-28 15:19:59', 0, '');
 
 --
--- Trigger `trans_adjustment`
+-- Triggers `trans_adjustment`
 --
 DELIMITER $$
 CREATE TRIGGER `Adjustment_Insert_Stok` AFTER INSERT ON `trans_adjustment` FOR EACH ROW UPDATE `master_stok` SET `stok_barang`=stok_barang + new.stok_adjustment ,`updated_at`=new.updated_at where `id_lokasi`=new.id_lokasi and `id_barang`=new.id_barang
@@ -3901,7 +3901,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_do`
+-- Table structure for table `trans_do`
 --
 
 CREATE TABLE `trans_do` (
@@ -3921,7 +3921,7 @@ CREATE TABLE `trans_do` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_do_body`
+-- Table structure for table `trans_do_body`
 --
 
 CREATE TABLE `trans_do_body` (
@@ -3941,7 +3941,7 @@ CREATE TABLE `trans_do_body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `trans_do_body`
+-- Triggers `trans_do_body`
 --
 DELIMITER $$
 CREATE TRIGGER `DO_Update_Stok` BEFORE INSERT ON `trans_do_body` FOR EACH ROW UPDATE `master_stok` SET `stok_barang`=stok_barang - new.qty_total_do ,`updated_at`=new.updated_at where `id_lokasi`=new.id_lokasi and `id_barang`=new.id_barang
@@ -3955,7 +3955,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_do_footer`
+-- Table structure for table `trans_do_footer`
 --
 
 CREATE TABLE `trans_do_footer` (
@@ -3975,7 +3975,7 @@ CREATE TABLE `trans_do_footer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `trans_do_footer`
+-- Triggers `trans_do_footer`
 --
 DELIMITER $$
 CREATE TRIGGER `DO_Update_Stok3` AFTER INSERT ON `trans_do_footer` FOR EACH ROW UPDATE `master_stok` SET `stok_barang`=stok_barang - new.qty_total_do ,`updated_at`=new.updated_at where `id_lokasi`=new.id_lokasi and `id_barang`=new.id_barang
@@ -3989,7 +3989,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pembelian`
+-- Table structure for table `trans_pembelian`
 --
 
 CREATE TABLE `trans_pembelian` (
@@ -4011,7 +4011,7 @@ CREATE TABLE `trans_pembelian` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pembelian_body`
+-- Table structure for table `trans_pembelian_body`
 --
 
 CREATE TABLE `trans_pembelian_body` (
@@ -4036,7 +4036,7 @@ CREATE TABLE `trans_pembelian_body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `trans_pembelian_body`
+-- Triggers `trans_pembelian_body`
 --
 DELIMITER $$
 CREATE TRIGGER `Pembelian_Sum_After_Insert` AFTER INSERT ON `trans_pembelian_body` FOR EACH ROW UPDATE `trans_pembelian` SET `total_transaksi`= (SELECT sum(`total_harga_pembelian`) FROM `trans_pembelian_body` WHERE id_pembelian=new.id_pembelian and is_void='0') where id_pembelian=new.id_pembelian
@@ -4050,7 +4050,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pembelian_footer`
+-- Table structure for table `trans_pembelian_footer`
 --
 
 CREATE TABLE `trans_pembelian_footer` (
@@ -4072,7 +4072,7 @@ CREATE TABLE `trans_pembelian_footer` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pi`
+-- Table structure for table `trans_pi`
 --
 
 CREATE TABLE `trans_pi` (
@@ -4097,7 +4097,7 @@ CREATE TABLE `trans_pi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pi_body`
+-- Table structure for table `trans_pi_body`
 --
 
 CREATE TABLE `trans_pi_body` (
@@ -4126,7 +4126,7 @@ CREATE TABLE `trans_pi_body` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pi_footer`
+-- Table structure for table `trans_pi_footer`
 --
 
 CREATE TABLE `trans_pi_footer` (
@@ -4146,7 +4146,7 @@ CREATE TABLE `trans_pi_footer` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_po`
+-- Table structure for table `trans_po`
 --
 
 CREATE TABLE `trans_po` (
@@ -4166,7 +4166,7 @@ CREATE TABLE `trans_po` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `trans_po`
+-- Dumping data for table `trans_po`
 --
 
 INSERT INTO `trans_po` (`id_po`, `no_transaksi`, `tgl_transaksi`, `id_supplier`, `keterangan`, `total_transaksi`, `total_potongan`, `proses`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -4175,7 +4175,7 @@ INSERT INTO `trans_po` (`id_po`, `no_transaksi`, `tgl_transaksi`, `id_supplier`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_po_body`
+-- Table structure for table `trans_po_body`
 --
 
 CREATE TABLE `trans_po_body` (
@@ -4200,14 +4200,14 @@ CREATE TABLE `trans_po_body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `trans_po_body`
+-- Dumping data for table `trans_po_body`
 --
 
 INSERT INTO `trans_po_body` (`id_po_body`, `id_po`, `id_barang`, `qty_po`, `satuan_po`, `isi_po`, `total_qty_po`, `harga_po`, `disc_1`, `disc_2`, `disc_3`, `disc_4`, `disc_5`, `total_harga_po`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
 (0, 1, 1, '1.00', 'PS', 1, 1, 100, '0.00', '0.00', '0.00', '0.00', '0.00', 100, '2017-12-28 17:08:02', '2017-12-28 17:08:02', 0, '');
 
 --
--- Trigger `trans_po_body`
+-- Triggers `trans_po_body`
 --
 DELIMITER $$
 CREATE TRIGGER `PO_Update_PO` AFTER INSERT ON `trans_po_body` FOR EACH ROW UPDATE `trans_po` SET `total_transaksi`= (SELECT sum(`total_harga_po`) FROM `trans_po_body` WHERE id_po=new.id_po and is_void='0') where id_po=new.id_po
@@ -4221,7 +4221,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_po_footer`
+-- Table structure for table `trans_po_footer`
 --
 
 CREATE TABLE `trans_po_footer` (
@@ -4241,7 +4241,7 @@ CREATE TABLE `trans_po_footer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `trans_po_footer`
+-- Dumping data for table `trans_po_footer`
 --
 
 INSERT INTO `trans_po_footer` (`id_po_footer`, `id_user`, `tgl_update`, `id_po`, `id_akun`, `no_pembayaran`, `persen_po`, `nominal`, `status`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -4249,7 +4249,7 @@ INSERT INTO `trans_po_footer` (`id_po_footer`, `id_user`, `tgl_update`, `id_po`,
 (2, 1, '2017-12-28 17:13:12', 1, 1, '', '0.00', -120000000, 0, '2017-12-28 17:13:12', '2017-12-28 17:13:12', 0, '');
 
 --
--- Trigger `trans_po_footer`
+-- Triggers `trans_po_footer`
 --
 DELIMITER $$
 CREATE TRIGGER `PO_Update_PO3` AFTER INSERT ON `trans_po_footer` FOR EACH ROW UPDATE `trans_po` SET `total_potongan`= (SELECT sum(`nominal`) FROM `trans_po_footer` WHERE id_po=new.id_po and is_void='0') where id_po=new.id_po
@@ -4263,7 +4263,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pr`
+-- Table structure for table `trans_pr`
 --
 
 CREATE TABLE `trans_pr` (
@@ -4283,7 +4283,7 @@ CREATE TABLE `trans_pr` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pr_body`
+-- Table structure for table `trans_pr_body`
 --
 
 CREATE TABLE `trans_pr_body` (
@@ -4304,7 +4304,7 @@ CREATE TABLE `trans_pr_body` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_pr_footer`
+-- Table structure for table `trans_pr_footer`
 --
 
 CREATE TABLE `trans_pr_footer` (
@@ -4325,7 +4325,7 @@ CREATE TABLE `trans_pr_footer` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_ri`
+-- Table structure for table `trans_ri`
 --
 
 CREATE TABLE `trans_ri` (
@@ -4346,7 +4346,7 @@ CREATE TABLE `trans_ri` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_ri_body`
+-- Table structure for table `trans_ri_body`
 --
 
 CREATE TABLE `trans_ri_body` (
@@ -4369,7 +4369,7 @@ CREATE TABLE `trans_ri_body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `trans_ri_body`
+-- Dumping data for table `trans_ri_body`
 --
 
 INSERT INTO `trans_ri_body` (`id_ri_body`, `id_ri`, `id_po`, `id_po_body`, `id_barang`, `id_lokasi`, `qty_ri`, `satuan_ri`, `isi_ri`, `qty_total_ri`, `tgl_exp`, `id_user`, `created_at`, `updated_at`, `is_void`, `ket`) VALUES
@@ -4378,7 +4378,7 @@ INSERT INTO `trans_ri_body` (`id_ri_body`, `id_ri`, `id_po`, `id_po_body`, `id_b
 (3, 1, 1, 1, 1, 1, '1.00', 'PS', 1, 3, '2017-12-28', 1, '2017-12-28 14:52:11', '2017-12-28 14:52:11', 0, '');
 
 --
--- Trigger `trans_ri_body`
+-- Triggers `trans_ri_body`
 --
 DELIMITER $$
 CREATE TRIGGER `RI_Update_Stok` AFTER INSERT ON `trans_ri_body` FOR EACH ROW UPDATE `master_stok` SET `stok_barang`=stok_barang+new.qty_total_ri ,`id_barang`=new.id_barang,`updated_at`=new.updated_at where `id_lokasi`=new.id_lokasi and `id_barang`=new.id_barang
@@ -4392,7 +4392,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_ri_footer`
+-- Table structure for table `trans_ri_footer`
 --
 
 CREATE TABLE `trans_ri_footer` (
@@ -4412,7 +4412,7 @@ CREATE TABLE `trans_ri_footer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `trans_ri_footer`
+-- Triggers `trans_ri_footer`
 --
 DELIMITER $$
 CREATE TRIGGER `RI_Update_Stok4` AFTER UPDATE ON `trans_ri_footer` FOR EACH ROW UPDATE `master_stok` SET `stok_barang`=stok_barang+new.qty_total_ri-old.qty_total_ri ,`id_barang`=new.id_barang,`updated_at`=new.updated_at where `id_lokasi`=new.id_lokasi and `id_barang`=new.id_barang
@@ -4426,7 +4426,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_si`
+-- Table structure for table `trans_si`
 --
 
 CREATE TABLE `trans_si` (
@@ -4451,7 +4451,7 @@ CREATE TABLE `trans_si` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_si_body`
+-- Table structure for table `trans_si_body`
 --
 
 CREATE TABLE `trans_si_body` (
@@ -4480,7 +4480,7 @@ CREATE TABLE `trans_si_body` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_si_footer`
+-- Table structure for table `trans_si_footer`
 --
 
 CREATE TABLE `trans_si_footer` (
@@ -4502,7 +4502,7 @@ CREATE TABLE `trans_si_footer` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_so`
+-- Table structure for table `trans_so`
 --
 
 CREATE TABLE `trans_so` (
@@ -4525,7 +4525,7 @@ CREATE TABLE `trans_so` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_so_body`
+-- Table structure for table `trans_so_body`
 --
 
 CREATE TABLE `trans_so_body` (
@@ -4550,7 +4550,7 @@ CREATE TABLE `trans_so_body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `trans_so_body`
+-- Triggers `trans_so_body`
 --
 DELIMITER $$
 CREATE TRIGGER `SO_Update_SO` AFTER INSERT ON `trans_so_body` FOR EACH ROW UPDATE `trans_so` SET `total_transaksi`= (SELECT sum(`total_harga_so`) FROM `trans_so_body` WHERE id_so=new.id_so and is_void='0') where id_so=new.id_so
@@ -4564,7 +4564,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_so_footer`
+-- Table structure for table `trans_so_footer`
 --
 
 CREATE TABLE `trans_so_footer` (
@@ -4584,7 +4584,7 @@ CREATE TABLE `trans_so_footer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Trigger `trans_so_footer`
+-- Triggers `trans_so_footer`
 --
 DELIMITER $$
 CREATE TRIGGER `SO_Update_SO3` AFTER INSERT ON `trans_so_footer` FOR EACH ROW UPDATE `trans_so` SET `total_potongan`= (SELECT sum(`total_harga_so`) FROM `trans_so_footer` WHERE id_so=new.id_so and is_void='0') where id_so=new.id_so
@@ -4598,7 +4598,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_sr`
+-- Table structure for table `trans_sr`
 --
 
 CREATE TABLE `trans_sr` (
@@ -4618,7 +4618,7 @@ CREATE TABLE `trans_sr` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_sr_body`
+-- Table structure for table `trans_sr_body`
 --
 
 CREATE TABLE `trans_sr_body` (
@@ -4639,7 +4639,7 @@ CREATE TABLE `trans_sr_body` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trans_sr_footer`
+-- Table structure for table `trans_sr_footer`
 --
 
 CREATE TABLE `trans_sr_footer` (
@@ -4660,7 +4660,7 @@ CREATE TABLE `trans_sr_footer` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -4675,11 +4675,13 @@ CREATE TABLE `users` (
   `ket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Indexes for dumped tables
+-- Stand-in structure for view `view_barang`
+-- (See below for the actual view)
 --
---
-CREATE TABLE IF NOT EXISTS `view_barang` (
+CREATE TABLE `view_barang` (
 `id_barang` int(11)
 ,`kode_barang_supplier` varchar(271)
 ,`kode_barang_merk` varchar(36)
@@ -4698,6 +4700,7 @@ CREATE TABLE IF NOT EXISTS `view_barang` (
 ,`harga_5` varchar(322)
 ,`total_barang` decimal(32,0)
 );
+
 -- --------------------------------------------------------
 
 --
@@ -4705,7 +4708,11 @@ CREATE TABLE IF NOT EXISTS `view_barang` (
 --
 DROP TABLE IF EXISTS `view_barang`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_barang` AS select `b`.`id_barang` AS `id_barang`,concat(`s`.`kode_supplier`,'-',`b`.`kode_barang`) AS `kode_barang_supplier`,concat(`m`.`kode_merk`,'-',`b`.`kode_barang`) AS `kode_barang_merk`,concat(`k`.`kode_kategori`,'-',`b`.`kode_barang`) AS `kode_barang_kategori`,`b`.`kode_barang` AS `kode_barang`,`b`.`barcode_1` AS `barcode_1`,`b`.`barcode_2` AS `barcode_2`,`b`.`barcode_3` AS `barcode_3`,`b`.`barcode_4` AS `barcode_4`,`b`.`barcode_5` AS `barcode_5`,`b`.`nama_barang` AS `nama_barang`,concat(cast(format(`b`.`harga_1`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_1` using utf8mb4),' - (',`b`.`kali_1`,')') AS `harga_1`,concat(cast(format(`b`.`harga_2`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_2` using utf8mb4),' - (',`b`.`kali_2`,')') AS `harga_2`,concat(cast(format(`b`.`harga_3`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_3` using utf8mb4),' - (',`b`.`kali_3`,')') AS `harga_3`,concat(cast(format(`b`.`harga_4`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_4` using utf8mb4),' - (',`b`.`kali_4`,')') AS `harga_4`,concat(cast(format(`b`.`harga_5`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_5` using utf8mb4),' - (',`b`.`kali_5`,')') AS `harga_5`,sum(`l`.`stok_barang`) AS `total_barang` from ((((`master_barang` `b` left join `master_supplier` `s` on((`b`.`id_supplier` = `s`.`id_supplier`))) left join `master_kategori` `k` on((`b`.`id_kategori` = `k`.`id_kategori`))) left join `master_merk` `m` on((`b`.`id_merk` = `m`.`id_merk`))) left join `master_stok` `l` on((`b`.`id_barang` = `l`.`id_barang`))) group by `b`.`id_barang`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_barang`  AS  select `b`.`id_barang` AS `id_barang`,concat(`s`.`kode_supplier`,'-',`b`.`kode_barang`) AS `kode_barang_supplier`,concat(`m`.`kode_merk`,'-',`b`.`kode_barang`) AS `kode_barang_merk`,concat(`k`.`kode_kategori`,'-',`b`.`kode_barang`) AS `kode_barang_kategori`,`b`.`kode_barang` AS `kode_barang`,`b`.`barcode_1` AS `barcode_1`,`b`.`barcode_2` AS `barcode_2`,`b`.`barcode_3` AS `barcode_3`,`b`.`barcode_4` AS `barcode_4`,`b`.`barcode_5` AS `barcode_5`,`b`.`nama_barang` AS `nama_barang`,concat(cast(format(`b`.`harga_1`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_1` using utf8mb4),' - (',`b`.`kali_1`,')') AS `harga_1`,concat(cast(format(`b`.`harga_2`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_2` using utf8mb4),' - (',`b`.`kali_2`,')') AS `harga_2`,concat(cast(format(`b`.`harga_3`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_3` using utf8mb4),' - (',`b`.`kali_3`,')') AS `harga_3`,concat(cast(format(`b`.`harga_4`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_4` using utf8mb4),' - (',`b`.`kali_4`,')') AS `harga_4`,concat(cast(format(`b`.`harga_5`,2) as char(50) charset utf8mb4),'/',convert(`b`.`satuan_5` using utf8mb4),' - (',`b`.`kali_5`,')') AS `harga_5`,sum(`l`.`stok_barang`) AS `total_barang` from ((((`master_barang` `b` left join `master_supplier` `s` on((`b`.`id_supplier` = `s`.`id_supplier`))) left join `master_kategori` `k` on((`b`.`id_kategori` = `k`.`id_kategori`))) left join `master_merk` `m` on((`b`.`id_merk` = `m`.`id_merk`))) left join `master_stok` `l` on((`b`.`id_barang` = `l`.`id_barang`))) group by `b`.`id_barang` ;
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `log_transaksi`
@@ -5049,7 +5056,7 @@ ALTER TABLE `trans_pi_footer`
 -- AUTO_INCREMENT for table `trans_po`
 --
 ALTER TABLE `trans_po`
-  MODIFY `id_po` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_po` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `trans_po_body`
 --
