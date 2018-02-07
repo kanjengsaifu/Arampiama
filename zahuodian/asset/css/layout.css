@@ -1,0 +1,124 @@
+/*input {
+  display: block;
+width: 100%;
+color: #555;
+background-image: none;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}*/
+.numberhit{
+  text-align: right;
+}
+.dataTables_wrapper {
+  width: 100%;
+}
+.xHeightForm-control{
+  height: 34px;
+}
+
+#pagingtable ul{
+  width: 100%;
+}
+.table-responsive{
+       /* overflow-x: hidden;*/
+        margin: 20px -10px;
+}
+
+.btn-second{
+  background-image: linear-gradient(to bottom ,#aa66cc 100%,  #9933CC  0%);
+  border:1px solid #9933CC;
+  color:#fff;
+}
+.btn-second:hover {
+      background-color: #aa66cc;
+      color:#fff;
+}
+
+.btn-second:active {
+          background-color: #aa66cc;
+          border:1px solid #9933CC;
+          color:#fff;
+}
+.btn-second:visited {
+          background-color: #aa66cc;
+          border:1px solid #9933CC;
+          color:#fff;
+}
+#carisup{
+  margin-top: 20px;
+}
+#caricus{
+  margin-top: 20px;
+}
+#allsup{
+  margin-top: 20px;
+}
+#allcus{
+  margin-top: 20px;
+}
+.allsupbuah{
+  margin-top: 20px;
+}
+.tablefix{
+  table-layout:initial;
+}
+.tablexscroll{
+     table-layout:initial;
+}
+
+/*table {
+    table-layout: fixed;
+    overflow-x: hidden;
+}*/
+table {
+    overflow-x: scroll;
+         table-layout:initial;
+}
+
+table th,
+table td {
+  font-weight: normal;
+  /*! text-align: auto; */
+  vertical-align: middle;
+}
+
+table th {
+  background-color: #3F729B;
+  color: white;
+  font-weight: bold;
+}
+
+
+#tambah th, #tambah td {
+    text-align: left;
+  }
+
+ #tambah td textarea {
+    resize: none
+  }
+}
+label {
+  cursor: pointer;
+}
+
+.dataTables_filter{
+  float: right;
+}
+
+.dataTables_info{
+  float: left;
+}
+ .pagination{
+  margin: 0px;
+  float: right;
+}
+#inicetak {
+  font-size: 15px;
+}
+.cetak {
+  font-size: 15px;
+}

@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+
+RewriteRule ^tambahmenu$ media.php?module=tambahmenu [L]
+
+Options All -Indexes
+</IfModule>

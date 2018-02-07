@@ -1,0 +1,163 @@
+<?php
+ include "config/koneksi.php";
+ error_reporting(E_ALL ^ E_NOTICE);
+ session_start();
+ if (empty($_SESSION['username']) AND empty($_SESSION['password'])){
+  echo "
+ <center>Untuk mengakses modul, Anda harus login <br>";
+  echo "<a href=../../index.php><b>LOGIN</b></a></center>";
+}
+else{
+  $aksi="modul/salesinvoice/aksi_salesinvoice.php";
+  echo '<link rel="stylesheet" href="asset/css/layout.css">';
+  switch($_GET['act']){
+    default:
+        $judul = "Retur Penjulan";
+        $desk = "Modul Yang digunakan untuk meretur barang dengan memotong nota dari penjual";
+        headerDeskripsi($judul,$desk);
+         include 'retur-penjualan-tampil.php';
+    break;
+    case 'tambah': 
+        $judul = "Retur Tambah Penjulan";
+        $desk = "Modul Yang digunakan untuk meretur barang dengan memotong nota dari penjual";
+        headerDeskripsi($judul,$desk);
+    include 'retur-penjualan-tambah.php';
+    break;
+  }
+ }
+ ?>
+<script>
+$(document).ready(function(){
+                $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
+                {
+                    return {
+                        "iStart": oSettings._iDisplayStart,
+                        "iEnd": oSettings.fnDisplayEnd(),
+                        "iLength": oSettings._iDisplayLength,
+                        "iTotal": oSettings.fnRecordsTotal(),
+                        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+                        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+                        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+                    };
+                };
+ 
+                var t = $('#modalnoinvoice').DataTable({
+                    "iDisplayLength": 10,
+                       "aLengthMenu": [ [10, 20,50],[10,20,50]],
+                      "pagingType" : "simple",
+                      "ordering": false,
+                      "info":     false,
+                      "language": {
+                            "decimal": ",",
+                            "thousands": "."
+                          },
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": "modul/returpenjualan/load-data_returpenjualan.php",
+                    "order": [[1, 'asc']],
+                    "rowCallback": function (row, data, iDisplayIndex) {
+                        var info = this.fnPagingInfo();
+                        var page = info.iPage;
+                        var length = info.iLength;
+                        var index = page * length + (iDisplayIndex + 1);
+                        $('td:eq(0)', row).html(index);
+                    },
+                });// datatable 
+      });
+  function addrjbno (kode,customer,id_customer) {
+                  var kd1 = kode;
+                  var jenis_retur =($('#jenis_retur').val() );
+                  var dataString = 'kd='+kd1+'&jenis_retur='+jenis_retur;
+                  $.ajax
+                      ({
+                      url: 'modul/returpenjualan/ajax_returpenjualan.php',
+                      data: dataString,
+                      cache: false,
+                      success: function(r)
+                                {
+                                       $("#tblrjb").html(r);
+                                } 
+                      });
+                  $("#modalnoinvoice").append($(this).html());
+                  $("#no_invoice").val(kode);
+                  $("#customer").val(id_customer);
+                  $("#customer2").val(customer);
+                  $("#modalrjb").modal('toggle');
+     };
+
+$(document).ready(function(){
+        $(this).keydown(function() {
+        setTimeout(function() {
+           returdisc();
+           returppn();
+           grandtotalretur();
+            }, 0);
+                    });
+  }); //ready document
+ function returdisc(){
+            var persendisc = ($('#returdiscpersen').val()),
+                    persenppn = ($('#returpersenppn').val()),
+                    total = ($('#returtotal').val()),
+                totaldisc = parseFloat(total) * parseFloat(persendisc)/100;
+                totalppn = (parseFloat(total) - parseFloat($('#returdiscnominal').val() != '' ? $('#returdiscnominal').val() : 0)) * parseFloat(persenppn) / 100;
+            if (!isNaN(totaldisc)) {
+                $('#returdiscnominal').val(totaldisc);
+            } 
+  }
+
+function returppn(){
+                    var persenppn = ($('#returpersenppn').val()),
+                    total = ($('#returtotal').val()),
+                    totaldisc = ($('#returdiscnominal').val()),
+                totalppn = (parseFloat(total) - parseFloat(totaldisc)) * parseFloat(persenppn) / 100;
+             if (!isNaN(totalppn)) {
+                $('#returppnnominal').val(totalppn);
+            }
+  }
+
+function converqty(a){
+             setTimeout(function() {
+                    var qty_satuan = ($('#qty_satuan-'+a).val()),
+                    jml_rjb = ($('#jml_rjb-'+a).val()),stok_sekarang = ($('#stok_sekarang-'+a).val()),jn=($('#jenis_retur').val()),qty_si_convert=($('#qty_si_convert-'+a).val())
+                totalconvert = (parseFloat(qty_satuan) * parseFloat(jml_rjb)),
+                jml_gudang=parseFloat(stok_sekarang)-parseFloat(totalconvert);
+                if (parseFloat(totalconvert)<=parseFloat(qty_si_convert)) {
+                              if (parseFloat(jml_gudang)>=0){
+                              $('#qty_convert-'+a).val(totalconvert);
+                              $('#totalbarang-'+a).val(jml_gudang);
+                               }
+                              else{
+                                      if (jn==1) {
+                                                 
+                                                  $('#jml_rjb-'+a).val("");
+                                                  $('#totalbarang-'+a).val("");
+                                                  $('#qty_convert-'+a).val("");
+                                                  if (isNaN(totalconvert)) {
+                                                          $('#qty_convert-'+a).val(0);
+                                                                            }
+                                                  }
+                                      if (jn==2) {$('#qty_convert-'+a).val(totalconvert);}
+
+                                  }
+                                                                  }else{ 
+                                                                               
+                                                                              $('#jml_rjb-'+a).val("");
+                                                                              $('#totalbarang-'+a).val("");
+                                                                              $('#qty_convert-'+a).val("");
+                                                                        };
+                                                                        },0)
+  }
+
+function grandtotalretur(){
+//$('#productall').on('focus', '.hitung2', function() {
+               var subtotal = ($('#returtotal').val() != '' ? $('#returtotal').val() : 0),
+                disc = ($('#returdiscnominal').val() != '' ? $('#returdiscnominal').val() : 0),
+                ppn = ($('#returppnnominal').val() != '' ? $('#returppnnominal').val() : 0),
+                grandtotal = parseFloat(subtotal) - parseFloat(disc) + parseFloat(ppn);
+            if (!isNaN(grandtotal)) {
+                $('#grandtotalretur').val(grandtotal);               
+            }
+       }
+datetimepiker();
+     
+</script>
